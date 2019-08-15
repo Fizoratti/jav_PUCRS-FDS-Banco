@@ -15,6 +15,10 @@ public class Cliente {
         return this.idade;
     }
 
+    public String getNome() {
+        return this.nome;
+    }
+
     public void printCliente() {
         System.out.println(nome + ", " + idade);
     }
