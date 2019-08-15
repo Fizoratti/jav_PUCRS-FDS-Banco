@@ -23,7 +23,7 @@ public class Cliente {
         System.out.println(nome + ", " + idade);
     }
 
-    public static void printClientes(List<Pessoa> lista, Predicate<Cliente> tester) {
+    public static void printClientes(List<Cliente> lista, Predicate<Cliente> tester) {
         for (Cliente c : lista) {
             if (tester.test(p)) {
                 c.printCliente();
