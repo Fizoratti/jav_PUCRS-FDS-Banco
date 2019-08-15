@@ -4,17 +4,11 @@ import java.util.List;
 
 public class App {
     public static void main(String args[]) {
+        System.out.print("Bem-vindo ao Banco!\n");
 
-        Message message = new Message("Hello World!");
-        System.out.println(message.getMessage());
+        Database.start();
 
-        Scanner ler = new Scanner(System.in);
-
-        String texto = ler.next();
-
-        ler.close();
-
-        System.out.println(texto);
+        Menu.getInstance().showMenu();
 
     }
 }
