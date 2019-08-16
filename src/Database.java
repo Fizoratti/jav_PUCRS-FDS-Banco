@@ -16,7 +16,7 @@ public class Database {
     private Database() {
         fila = new ArrayList<>();
 
-        carregarFila();
+        loadFila();
     }
 
     public static Database getInstance() {
@@ -28,6 +28,51 @@ public class Database {
 
     public ArrayList<Cliente> getFila() {
         return this.fila;
+    }
+
+    // Métodos para carregar os dados principais
+    public void loadFila() {
+        Path path = Paths.get("Fila.txt");
+        try (BufferedReader br = Files.newBufferedReader(path, Charset.defaultCharset())) {
+        String linha = br.readLine();
+        while ((linha = br.readLine()) != null) {
+            // separador: ;
+            Scanner sc = new Scanner(linha).useDelimiter(";");
+
+            // Atributos do Cliente
+            String nome = sc.next();
+            int idade = Integer.parseInt(sc.next());
+
+            // Cria uma instancia do Cliente e adiciona na lista
+            fila.add(new Cliente(nome, idade));
+        }
+        } catch (IOException e) {
+            System.err.format("Erro de E/S: %s%n", e);
+        }
+    }
+
+    // Listagem
+    public void showFila() {
+        for(Cliente c: fila) {
+            System.out.println();
+            System.out.println(c.toString());
+        }
+    }
+
+    // Registrar
+    public void saveFila(Cliente cliente) {
+        fila.add(cliente);
+        Path path = Paths.get("Fila.txt");
+        try(PrintWriter writer = new PrintWriter(
+            Files.newBufferedWriter(path, Charset.defaultCharset()))) {
+            writer.println("Nome;Idade");
+            for(Cliente c: fila) {
+                writer.println(c.getNome() + ";" +
+                                c.getIdade());
+            }
+        } catch (IOException e) {
+            System.err.format("Erro de E/S: %S%n", e);
+        }
     }
 
 
