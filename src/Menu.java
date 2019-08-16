@@ -15,9 +15,8 @@ public class Menu {
         System.out.println("--------------------------");
         System.out.println("MENU PRINCIPAL");
 
-        System.out.println("1 - Registrar 1");
-        System.out.println("2 - Registrar 2");
-        System.out.println("3 - Registrar 3");
+        System.out.println("1 - Sou Cliente");
+        System.out.println("2 - Sou Caixa");
 
         System.out.println("0 - Sair");
         System.out.print("\n$ Digite a opção: ");
@@ -27,19 +26,57 @@ public class Menu {
 
         switch(opc) {
             case 1:
-                showMenuEmprestimo();
+                showMenuCliente();
                 break;
             case 2:
-                showMenuDevolucao();
-                break;
-            case 3:
-                showMenuDoacao();
+                // showMenuCaixa();
                 break;
             case 0:
                 System.out.println("\nVolte logo!");
                 break;
             default:
                 showMenu();
+                break;
+        }
+    }
+
+    public void showMenuCliente() {
+        System.out.println("--------------------------");
+        System.out.println("MENU CLIENTE");
+
+        System.out.println("Digite seu nome:");
+        Scanner ler = new Scanner(System.in);
+        String nome = ler.next();
+
+        System.out.println("Digite sua idade:");
+        int idade = ler.nextInt();
+
+        Cliente cliente = new Cliente(nome, idade);
+
+        System.out.println("--------------------------");
+        System.out.println("MENU CLIENTE\n");
+        System.out.println(cliente.toString() + "\n");
+        System.out.println("1 - Sim");
+        System.out.println("0 - Não");
+        System.out.print("$ Confirma os dados?: ");
+        int opc = ler.nextInt();
+
+        switch(opc) {
+            case 1:
+                Database.getInstance().saveFila(cliente);
+                int pos = Database.getInstance().getFila().size();
+                System.out.println("\nVocê está na posição " + pos + " da fila!\n");
+                // Wait 2 seconds;
+                try{ 
+                    Thread.sleep(2000); 
+                } catch(Exception e) {
+                    Thread.currentThread().interrupt();
+                }
+            case 0:
+                showMenu();
+                break;
+            default:
+                showMenuCliente();
                 break;
         }
     }
