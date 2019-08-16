@@ -25,7 +25,7 @@ public class Cliente {
 
     public static void printClientes(List<Cliente> lista, Predicate<Cliente> tester) {
         for (Cliente c : lista) {
-            if (tester.test(p)) {
+            if (tester.test(c)) {
                 c.printCliente();
             }
         }
